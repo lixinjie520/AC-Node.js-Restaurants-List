@@ -1,6 +1,11 @@
 const express = require("express");
+const { engine } = require("express-handlebars");
 const app = express();
 const port = 3000;
+
+app.engine(".hbs", engine({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+app.set("views", "./views");
 
 // 載入json檔案
 app.use(express.static("public"));
@@ -12,7 +17,7 @@ app.get("/", (req, res) => {
 
 // 設定網站首頁路由
 app.get("/restaurants", (req, res) => {
-    res.send("home page of restaurants");
+    res.render("index");
 });
 
 // 設定餐廳詳細資料路由
