@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// 載入json檔案
+app.use(express.static("public"));
+
 // 根路徑會重新導航到網站首頁
 app.get("/", (req, res) => {
     res.redirect("/restaurants");
