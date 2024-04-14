@@ -18,7 +18,18 @@ app.get("/", (req, res) => {
 
 // 設定網站首頁和搜尋的路由
 app.get("/restaurants", (req, res) => {
-  res.render("index", { restaurants });
+  const keyword = req.query.keyword;
+  //console.log(keyword);
+  const matchedRestaurants = keyword
+    ? restaurants.filter((rest) =>
+        Object.values(rest).some((property) => {
+          if (typeof property === "string") {
+            return property.toLowerCase().includes(keyword.toLowerCase());
+          }
+        })
+      )
+    : restaurants;
+  res.render("index", { restaurants: matchedRestaurants, keyword });
 });
 
 // 設定餐廳詳細資料路由
