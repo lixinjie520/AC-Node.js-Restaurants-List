@@ -2,6 +2,7 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const app = express();
 const port = 3000;
+const restaurants = require("./public/jsons/restaurant.json").results;
 
 app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
@@ -12,20 +13,20 @@ app.use(express.static("public"));
 
 // 根路徑會重新導航到網站首頁
 app.get("/", (req, res) => {
-    res.redirect("/restaurants");
+  res.redirect("/restaurants");
 });
 
 // 設定網站首頁路由
 app.get("/restaurants", (req, res) => {
-    res.render("index");
+  res.render("index", { restaurants });
 });
 
 // 設定餐廳詳細資料路由
 app.get("/restaurant/:id", (req, res) => {
-    const id = req.params.id;
-    res.send(`restaurant: ${id}`);
+  const id = req.params.id;
+  res.send(`restaurant: ${id}`);
 });
 
 app.listen(port, () => {
-    console.log(`express server is running on http://localhost:${port}`);
+  console.log(`express server is running on http://localhost:${port}`);
 });
