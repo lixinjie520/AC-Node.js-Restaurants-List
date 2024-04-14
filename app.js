@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.redirect("/restaurants");
 });
 
-// 設定網站首頁路由
+// 設定網站首頁和搜尋的路由
 app.get("/restaurants", (req, res) => {
   res.render("index", { restaurants });
 });
@@ -24,7 +24,8 @@ app.get("/restaurants", (req, res) => {
 // 設定餐廳詳細資料路由
 app.get("/restaurant/:id", (req, res) => {
   const id = req.params.id;
-  res.send(`restaurant: ${id}`);
+  const restaurant = restaurants.find((rest) => rest.id.toString() === id);
+  res.render("detail", { restaurant });
 });
 
 app.listen(port, () => {
