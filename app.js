@@ -18,7 +18,9 @@ app.get("/", (req, res) => {
 
 // 設定網站首頁和搜尋的路由
 app.get("/restaurants", (req, res) => {
-  const keyword = req.query.keyword;
+  const keyword = req.query.keyword
+    ? req.query.keyword.trim()
+    : req.query.keyword;
   //console.log(keyword);
   const matchedRestaurants = keyword
     ? restaurants.filter((rest) =>
